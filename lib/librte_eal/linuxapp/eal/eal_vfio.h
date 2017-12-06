@@ -179,7 +179,7 @@ vfio_get_group_fd(int iommu_group_no);
 
 /* remove group fd from internal VFIO group fd array */
 int
-clear_group(int vfio_group_fd);
+rte_vfio_clear_group(int vfio_group_fd);
 
 int vfio_mp_sync_setup(void);
 
