@@ -64,6 +64,7 @@ dpaa2_create_dpbp_device(int vdev_fd __rte_unused,
 {
 	struct dpaa2_dpbp_dev *dpbp_node;
 	int ret;
+	static int active_pool;
 
 	/* Allocate DPAA2 dpbp handle */
 	dpbp_node = rte_malloc(NULL, sizeof(struct dpaa2_dpbp_dev), 0);
@@ -99,6 +100,11 @@ dpaa2_create_dpbp_device(int vdev_fd __rte_unused,
 	TAILQ_INSERT_TAIL(&dpbp_dev_list, dpbp_node, next);
 
 	RTE_LOG(DEBUG, PMD, "DPAA2: Added [dpbp.%d]\n", dpbp_id);
+
+	if (!active_pool) {
+		rte_pktmbuf_reg_active_mempool_ops(DPAA2_MEMPOOL_OPS_NAME);
+		active_pool = 1;
+	}
 
 	return 0;
 }
