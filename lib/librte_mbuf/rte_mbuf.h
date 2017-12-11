@@ -1081,6 +1081,19 @@ rte_pktmbuf_pool_create(const char *name, unsigned n,
 	int socket_id);
 
 /**
+ * Register the active HW pkt mbuf pool
+ *
+ * Register the active pktmbuf HW pool to overwrite the default pool
+ *
+ * @param pool ops name
+ * @return
+ *   - 0: Success
+ *   - -EACCES: Active mempool is already registered.
+ */
+int
+rte_pktmbuf_reg_active_mempool_ops(const char *ops_name);
+
+/**
  * Get the data room size of mbufs stored in a pktmbuf_pool
  *
  * The data room size is the amount of data that can be stored in a
